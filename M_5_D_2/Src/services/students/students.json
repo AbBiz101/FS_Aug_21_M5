@@ -1,6 +1,1 @@
-[
-	{ "name": "abnet", "age": "20", "id": "1234" },
-	{ "name": "abt", "age": "240", "id": "1304" },
-	{ "name": "abet", "age": "210", "id": "12304" },
-	{ "name": "aet", "age": "200", "id": "1204" }
-]
+[{"name":"Price","age":"25","createdAt":"2021-10-19T22:22:48.332Z","id":"162lwu7tkkuynk1l9"},{"name":"Orin","age":20,"createdAt":"2021-10-19T22:56:32.850Z","id":"162lwucs0kuyorfpw"},{"name":"Pattie","age":20,"createdAt":"2021-10-19T22:56:48.535Z","id":"162lwucs0kuyorrtj"},{"name":"Perry","age":20,"createdAt":"2021-10-19T22:56:50.252Z","id":"162lwucs0kuyort58"},{"name":"Christ","age":34,"createdAt":"2021-10-19T22:56:51.231Z","id":"162lwucs0kuyortwf"}]
