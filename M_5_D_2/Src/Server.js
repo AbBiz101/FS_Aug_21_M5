@@ -1,6 +1,16 @@
 import express from 'express';
-const port = 3002;
+import Endpoints from 'express-list-endpoints';
+
+import studentRounter from './services/students/index.js';
+
 const server = express();
+
+server.use('/students', studentRounter);
+
+const port = 3001;
+
+console.table(Endpoints(server));
+
 server.listen(port, () => {
-	console.log('server running!', port);
+	console.log('server running-', port);
 });
