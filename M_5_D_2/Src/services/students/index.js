@@ -3,51 +3,82 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import uniqid from 'uniqid';
+import createHttpError from 'http-errors';
 
 const studentRounter = express.Router();
-const currentPath = fileURLToPath(import.meta.url);
-const parentFolderPath = dirname(currentPath);
-const studentsJSON = join(parentFolderPath, 'students.json');
+
+const studentsJSON = join(
+	dirname(fileURLToPath(import.meta.url)),
+	'students.json',
+);
+const getStudents = () => JSON.parse(fs.readFileSync(studentsJSON));
+const writeStudents = (x) => fs.writeFileSync(studentsJSON, JSON.stringify(x));
 
 // 1.
-studentRounter.post('/', (req, res) => {
-	const allStudents = JSON.parse(fs.readFileSync(studentsJSON));
-	const newStudent = { ...req.body, createdAt: new Date(), id: uniqid() };
-	console.log(newStudent);
-	allStudents.push(newStudent);
-	fs.writeFileSync(studentsJSON, JSON.stringify(allStudents));
-	res.status(201).send(`new student is created. the id is:- ${newStudent.id} `);
+studentRounter.post('/', (req, res, next) => {
+	try {
+		const allStudents = getStudents();
+		const newStudent = { ...req.body, createdAt: new Date(), id: uniqid() };
+		console.log(newStudent);
+		allStudents.push(newStudent);
+		writeStudents(allStudents);
+		res
+			.status(201)
+			.send(`new student is created. the id is:- ${newStudent.id}`);
+	} catch (error) {
+		next(errer);
+	}
 });
 
 // 2.
-studentRounter.get('/', (req, res) => {
-	const allStudents = JSON.parse(fs.readFileSync(studentsJSON));
-	res.send(allStudents);
+studentRounter.get('/', (req, res, next) => {
+	try {
+		const allStudents = getStudents();
+		res.send(allStudents);
+	} catch (error) {
+		next(errer);
+	}
 });
 
 // 3.
-studentRounter.get('/:id', (req, res) => {
-	const allStudents = JSON.parse(fs.readFileSync(studentsJSON));
-	const studentByID = allStudents.find((s) => s.id === req.params.id);
-	res.send(studentByID);
+studentRounter.get('/:id', (req, res, next) => {
+	try {
+		const allStudents = getStudents();
+		const studentByID = allStudents.find((s) => s.id === req.params.id);
+		if (studentByID) {
+			res.send(studentByID);
+		} else {
+			next(createHttpError(404, `Student with id ${req.params.id} not found`));
+		}
+	} catch (error) {
+		next(errer);
+	}
 });
 
 // 4.
-studentRounter.put('/:id', (req, res) => {
-	const allStudents = JSON.parse(fs.readFileSync(studentsJSON));
-	const index = allStudents.findIndex((s) => s.id === req.params.id);
-	const updatStudent = { ...allStudents[index], ...req.body };
-	allStudents[index] = updatStudent;
-	fs.writeFileSync(studentsJSON, JSON.stringify(allStudents));
-	res.send(updatStudent);
+studentRounter.put('/:id', (req, res, next) => {
+	try {
+		const allStudents = getStudents();
+		const index = allStudents.findIndex((s) => s.id === req.params.id);
+		const updatStudent = { ...allStudents[index], ...req.body };
+		allStudents[index] = updatStudent;
+		writeStudents(allStudents);
+		res.send(updatStudent);
+	} catch (error) {
+		next(errer);
+	}
 });
 
 // 5.
 studentRounter.delete('/:id', (req, res) => {
-	const allStudents = JSON.parse(fs.readFileSync(studentsJSON));
-	const studentByID = allStudents.filter((s) => s.id !== req.params.id);
-	fs.writeFileSync(studentsJSON, JSON.stringify(studentByID));
-	res.status(204).send();
+	try {
+		const allStudents = getStudents();
+		const studentByID = allStudents.filter((s) => s.id !== req.params.id);
+		writeStudents(studentByID);
+		res.status(204).send();
+	} catch (error) {
+		next(errer);
+	}
 });
 
 export default studentRounter;

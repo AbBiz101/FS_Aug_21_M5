@@ -7,17 +7,17 @@ import createHttpError from 'http-errors';
 
 const booksRounter = express.Router();
 
-const currentPath = fileURLToPath(import.meta.url);
-const parentFolderPath = dirname(currentPath);
-const booksJSON = join(parentFolderPath, 'books.json');
-// or  booksJSON= join (dirname(fileURLToPath(import.meta.url)),'books.json')
+const booksJSON = join(dirname(fileURLToPath(import.meta.url)), 'books.json');
+const getBook = () => JSON.parse(fs.readFileSync(booksJSON));
+
+const writeBooks = (x) => fs.writeFileSync(booksJSON, JSON.stringify(x));
 
 booksRounter.post('/', (req, res, next) => {
 	try {
-		const allBooks = JSON.parse(fs.readFileSync(booksJSON));
+		const allBooks = getBook();
 		const newBook = { ...req.body, createdAt: new Date(), id: uniqid() };
 		allBooks.push(newBook);
-		fs.writeFileSync(booksJSON, JSON.stringify(allBooks));
+		writeBooks(allBooks);
 		res.status(201).send(`new book is created`);
 	} catch (error) {
 		next(error);
@@ -26,7 +26,7 @@ booksRounter.post('/', (req, res, next) => {
 
 booksRounter.get('/', (req, res, next) => {
 	try {
-		const allBooks = JSON.parse(fs.readFileSync(booksJSON));
+		const allBooks = getBook();
 		if (req.query && req.query.title) {
 			const filter = allBooks.filter((b) => b.title === req.query.title);
 			res.send(filter);
@@ -40,7 +40,7 @@ booksRounter.get('/', (req, res, next) => {
 
 booksRounter.get('/:id', (req, res, next) => {
 	try {
-		const allBooks = JSON.parse(fs.readFileSync(booksJSON));
+		const allBooks = getBook();
 		const singleBook = allBooks.find((book) => book.id === req.params.id);
 		if (singleBook) {
 			res.send(singleBook);
@@ -54,11 +54,11 @@ booksRounter.get('/:id', (req, res, next) => {
 
 booksRounter.put('/:id', (req, res, next) => {
 	try {
-		const allBooks = JSON.parse(fs.readFileSync(booksJSON));
+		const allBooks = getBook();
 		const index = allBooks.findIndex((book) => book.id === req.params.id);
 		const editedBook = { ...allBooks[index], ...req.body };
 		allBooks[index] = editedBook;
-		fs.writeFileSync(booksJSON, JSON.stringify(allBooks));
+		writeBooks(allBooks);
 		res.send(editedBook);
 	} catch (error) {
 		next(error);
@@ -67,9 +67,9 @@ booksRounter.put('/:id', (req, res, next) => {
 
 booksRounter.delete('/:id', (req, res, next) => {
 	try {
-		const allBooks = JSON.parse(fs.readFileSync(booksJSON));
+		const allBooks = getBook();
 		const singleBook = allBooks.filter((book) => book.id !== req.params.id);
-		fs.writeFileSync(booksJSON, JSON.stringify(singleBook));
+		writeBooks(singleBook);
 		res.status(204).send();
 	} catch (error) {
 		next(error);
