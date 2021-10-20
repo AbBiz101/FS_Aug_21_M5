@@ -23,20 +23,26 @@ blogpostRounter.post('/', (req, res, next) => {
 		post.push(newPost);
 		writePost(post);
 		res.status(201).send('Post created');
-	} catch (error) {}
+	} catch (error) {
+		next(error);
+	}
 });
 blogpostRounter.get('/', (req, res, next) => {
 	try {
 		const post = getPost();
 		res.send(post);
-	} catch (error) {}
+	} catch (error) {
+		next(error);
+	}
 });
 blogpostRounter.get('/:postID', (req, res, next) => {
 	try {
 		const post = getPost();
 		const singlePost = post.find((p) => p.id === req.params.postID);
 		res.send(singlePost);
-	} catch (error) {}
+	} catch (error) {
+		next(error);
+	}
 });
 blogpostRounter.put('/:postID', (req, res, next) => {
 	try {
@@ -46,7 +52,9 @@ blogpostRounter.put('/:postID', (req, res, next) => {
 		post[postIndex] = editedPost;
 		writePost(post);
 		res.send(editedPost);
-	} catch (error) {}
+	} catch (error) {
+		next(error);
+	}
 });
 blogpostRounter.delete('/:postID', (req, res, next) => {
 	try {
@@ -54,9 +62,11 @@ blogpostRounter.delete('/:postID', (req, res, next) => {
 		filterdPost = post.filter((p) => p.id !== req.params.postID);
 		console.log(req.params.postID);
 		writePost(filterdPost);
-		console.log(req.params.postID);
+		console.log('deeted');
 		res.status(204).send();
-	} catch (error) {}
+	} catch (error) {
+		next(error);
+	}
 });
 
 export default blogpostRounter;
