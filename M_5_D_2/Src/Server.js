@@ -3,8 +3,12 @@ import Endpoints from 'express-list-endpoints';
 import cors from 'cors';
 import studentRounter from './services/students/index.js';
 import booksRounter from './services/books/index.js';
-import { errorHandler } from './errorHandler';
-//  errorHandler;
+import {
+	genericErrorHandler,
+	badRequestHandler,
+	notFoundHandler,
+	unAutorizedHandler,
+} from './errorHandler.js';
 const server = express();
 
 server.use(cors());
@@ -13,7 +17,10 @@ server.use(express.json());
 server.use('/students', studentRounter);
 server.use('/authors', booksRounter);
 
-server.use(errorHandler);
+server.use(badRequestHandler);
+server.use(unAutorizedHandler);
+server.use(notFoundHandler);
+server.use(genericErrorHandler);
 
 const port = 3001;
 console.table(Endpoints(server));

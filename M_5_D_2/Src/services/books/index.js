@@ -3,12 +3,15 @@ import fs from 'fs';
 import uniqid from 'uniqid';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import createHttpError from 'http-errors';
 
 const booksRounter = express.Router();
+
 const currentPath = fileURLToPath(import.meta.url);
 const parentFolderPath = dirname(currentPath);
 const booksJSON = join(parentFolderPath, 'books.json');
-// or  booksJSON= join (dirname(fileURLToPath(import.meta.url)),'books.json') 
+// or  booksJSON= join (dirname(fileURLToPath(import.meta.url)),'books.json')
+
 booksRounter.post('/', (req, res, next) => {
 	try {
 		const allBooks = JSON.parse(fs.readFileSync(booksJSON));
@@ -39,7 +42,11 @@ booksRounter.get('/:id', (req, res, next) => {
 	try {
 		const allBooks = JSON.parse(fs.readFileSync(booksJSON));
 		const singleBook = allBooks.find((book) => book.id === req.params.id);
-		res.send(singleBook);
+		if (singleBook) {
+			res.send(singleBook);
+		} else {
+			next(createHttpError(404, `Book with id ${req.params.id} not found`));
+		}
 	} catch (error) {
 		next(error);
 	}
