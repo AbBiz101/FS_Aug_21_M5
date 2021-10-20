@@ -21,6 +21,7 @@ studentRounter.post('/', (req, res) => {
 
 // 2.
 studentRounter.get('/', (req, res) => {
+	const allStudents = JSON.parse(fs.readFileSync(studentsJSON));
 	res.send(allStudents);
 });
 

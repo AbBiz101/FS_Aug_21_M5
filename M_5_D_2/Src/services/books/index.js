@@ -8,7 +8,7 @@ const booksRounter = express.Router();
 const currentPath = fileURLToPath(import.meta.url);
 const parentFolderPath = dirname(currentPath);
 const booksJSON = join(parentFolderPath, 'books.json');
-
+// or  booksJSON= join (dirname(fileURLToPath(import.meta.url)),'books.json')
 booksRounter.post('/', (req, res) => {
 	const allBooks = JSON.parse(fs.readFileSync(booksJSON));
 	const newBook = { ...req.body, createdAt: new Date(), id: uniqid() };
