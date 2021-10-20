@@ -9,9 +9,9 @@ const booksRounter = express.Router();
 
 const booksJSON = join(dirname(fileURLToPath(import.meta.url)), 'books.json');
 const getBook = () => JSON.parse(fs.readFileSync(booksJSON));
-
 const writeBooks = (x) => fs.writeFileSync(booksJSON, JSON.stringify(x));
 
+// 1
 booksRounter.post('/', (req, res, next) => {
 	try {
 		const allBooks = getBook();
@@ -24,6 +24,7 @@ booksRounter.post('/', (req, res, next) => {
 	}
 });
 
+// 2
 booksRounter.get('/', (req, res, next) => {
 	try {
 		const allBooks = getBook();
@@ -38,6 +39,7 @@ booksRounter.get('/', (req, res, next) => {
 	}
 });
 
+// 3
 booksRounter.get('/:id', (req, res, next) => {
 	try {
 		const allBooks = getBook();
@@ -52,6 +54,7 @@ booksRounter.get('/:id', (req, res, next) => {
 	}
 });
 
+// 4
 booksRounter.put('/:id', (req, res, next) => {
 	try {
 		const allBooks = getBook();
@@ -65,6 +68,7 @@ booksRounter.put('/:id', (req, res, next) => {
 	}
 });
 
+// 5
 booksRounter.delete('/:id', (req, res, next) => {
 	try {
 		const allBooks = getBook();
