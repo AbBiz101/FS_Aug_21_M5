@@ -6,6 +6,7 @@ import uniqid from 'uniqid';
 import createHttpError from 'http-errors';
 import { validationResult } from 'express-validator';
 import { blogValidator } from './validation.js';
+
 const blogpostRounter = express.Router();
 
 const blogpostJSON = join(
@@ -20,7 +21,7 @@ blogpostRounter.post('/', blogValidator, (req, res, next) => {
 	try {
 		const errorsList = validationResult(req);
 		if (!errorsList.isEmpty()) {
-			next(createHttpError(400, 'invalid blog post format.'));
+			next(createHttpError(400, { errorsList }));
 		} else {
 			const post = getPost();
 			const newPost = { ...req.body, createdAt: new Date(), id: uniqid() };
@@ -32,6 +33,7 @@ blogpostRounter.post('/', blogValidator, (req, res, next) => {
 		next(error);
 	}
 });
+
 blogpostRounter.get('/', (req, res, next) => {
 	try {
 		const post = getPost();
@@ -40,6 +42,7 @@ blogpostRounter.get('/', (req, res, next) => {
 		next(error);
 	}
 });
+
 blogpostRounter.get('/:postID', (req, res, next) => {
 	try {
 		const post = getPost();
@@ -49,6 +52,7 @@ blogpostRounter.get('/:postID', (req, res, next) => {
 		next(error);
 	}
 });
+
 blogpostRounter.put('/:postID', (req, res, next) => {
 	try {
 		const post = getPost();
@@ -61,6 +65,7 @@ blogpostRounter.put('/:postID', (req, res, next) => {
 		next(error);
 	}
 });
+
 blogpostRounter.delete('/:postID', (req, res, next) => {
 	try {
 		const post = getPost();
