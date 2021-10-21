@@ -17,12 +17,11 @@ const writeStudents = (x) => fs.writeFileSync(studentsJSON, JSON.stringify(x));
 
 // 1.
 studentRounter.post('/', studentValidator, (req, res, next) => {
-	const errorsList = validationResult(req);
-
-	if (!errorsList.isEmpty()) {
-		next(createHttpError(400, `Ivalid student information.`, { errorsList }));
-	} else {
-		try {
+	try {
+		const errorsList = validationResult(req);
+		if (!errorsList.isEmpty()) {
+			next(createHttpError(400, { errorsList }));
+		} else {
 			const allStudents = getStudents();
 			const newStudent = { ...req.body, createdAt: new Date(), id: uniqid() };
 			console.log(newStudent);
@@ -31,9 +30,9 @@ studentRounter.post('/', studentValidator, (req, res, next) => {
 			res
 				.status(201)
 				.send(`new student is created. the id is:- ${newStudent.id}`);
-		} catch (error) {
-			next(error);
 		}
+	} catch (error) {
+		next(error);
 	}
 });
 

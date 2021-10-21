@@ -14,19 +14,19 @@ const writeBooks = (x) => fs.writeFileSync(booksJSON, JSON.stringify(x));
 
 // 1
 booksRounter.post('/', bookValidator, (req, res, next) => {
-	const erroList = validationResult(req);
-	if (!erroList.isEmpty()) {
-		next(createHttpError(400, `invalid book information`, { erroList }));
-	} else {
-		try {
+	try {
+		const errorsList = validationResult(req);
+		if (!errorsList.isEmpty()) {
+			next(createHttpError(400, `invalid book information`, { errorsList }));
+		} else {
 			const allBooks = getBook();
 			const newBook = { ...req.body, createdAt: new Date(), id: uniqid() };
 			allBooks.push(newBook);
 			writeBooks(allBooks);
 			res.status(201).send(`new book is created`);
-		} catch (error) {
-			next(error);
 		}
+	} catch (error) {
+		next(error);
 	}
 });
 
