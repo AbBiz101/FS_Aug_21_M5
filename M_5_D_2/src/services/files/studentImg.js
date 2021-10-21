@@ -22,7 +22,11 @@ studentImgRouter.post(
 	multer().array('multiPics'),
 	async (req, res, next) => {
 		try {
-			res.send('ok');
+			const multiImg = req.files.map((file) =>
+				saveStudentPic(file.originalname, file.buffer),
+			);
+			await Promise.all(multiImg);
+			res.send('oks');
 		} catch (error) {
 			next(error);
 		}
