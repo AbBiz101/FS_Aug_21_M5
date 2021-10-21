@@ -1,6 +1,4 @@
-import express from 'express';
-import fs from 'fs';
-import uniqid from 'uniqid';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
+import { body } from 'express-validator';
+export const blogValidator = [
+	body('title').exists().withMessage('title is mandatory field.'),
+];

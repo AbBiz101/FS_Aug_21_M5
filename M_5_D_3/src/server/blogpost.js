@@ -5,7 +5,7 @@ import fs from 'fs';
 import uniqid from 'uniqid';
 import createHttpError from 'http-errors';
 import { validationResult } from 'express-validator';
-
+import { blogValidator } from './validation.js';
 const blogpostRounter = express.Router();
 
 const blogpostJSON = join(
@@ -16,13 +16,18 @@ const getPost = () => JSON.parse(fs.readFileSync(blogpostJSON));
 const writePost = (post) =>
 	fs.writeFileSync(blogpostJSON, JSON.stringify(post));
 
-blogpostRounter.post('/', (req, res, next) => {
+blogpostRounter.post('/', blogValidator, (req, res, next) => {
 	try {
-		const post = getPost();
-		const newPost = { ...req.body, createdAt: new Date(), id: uniqid() };
-		post.push(newPost);
-		writePost(post);
-		res.status(201).send('Post created');
+		const errorsList = validationResult(req);
+		if (!errorsList.isEmpty()) {
+			next(createHttpError(400, 'invalid blog post format.'));
+		} else {
+			const post = getPost();
+			const newPost = { ...req.body, createdAt: new Date(), id: uniqid() };
+			post.push(newPost);
+			writePost(post);
+			res.status(201).send('Post created');
+		}
 	} catch (error) {
 		next(error);
 	}
