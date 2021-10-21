@@ -1,6 +1,6 @@
 export const badRequestHandler = (err, req, res, next) => {
 	if (err.status === 400) {
-		res.status(400).send({ message: 'Bad request' });
+		res.status(400).send({ message: err.message || 'Bad request' });
 	} else {
 		next(err);
 	}

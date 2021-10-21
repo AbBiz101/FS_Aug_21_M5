@@ -4,7 +4,8 @@ import uniqid from 'uniqid';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import createHttpError from 'http-errors';
-
+import { validationResult } from 'express-validator';
+import { bookValidator } from './validation.js';
 const booksRounter = express.Router();
 
 const booksJSON = join(dirname(fileURLToPath(import.meta.url)), 'books.json');
@@ -12,15 +13,20 @@ const getBook = () => JSON.parse(fs.readFileSync(booksJSON));
 const writeBooks = (x) => fs.writeFileSync(booksJSON, JSON.stringify(x));
 
 // 1
-booksRounter.post('/', (req, res, next) => {
-	try {
-		const allBooks = getBook();
-		const newBook = { ...req.body, createdAt: new Date(), id: uniqid() };
-		allBooks.push(newBook);
-		writeBooks(allBooks);
-		res.status(201).send(`new book is created`);
-	} catch (error) {
-		next(error);
+booksRounter.post('/', bookValidator, (req, res, next) => {
+	const erroList = validationResult(req);
+	if (!erroList.isEmpty()) {
+		next(createHttpError(400, `invalid book information`, { erroList }));
+	} else {
+		try {
+			const allBooks = getBook();
+			const newBook = { ...req.body, createdAt: new Date(), id: uniqid() };
+			allBooks.push(newBook);
+			writeBooks(allBooks);
+			res.status(201).send(`new book is created`);
+		} catch (error) {
+			next(error);
+		}
 	}
 });
 
