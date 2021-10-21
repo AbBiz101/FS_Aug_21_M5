@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import Card from './Card'
-ReactDOM.render(<Card />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 reportWebVitals();
