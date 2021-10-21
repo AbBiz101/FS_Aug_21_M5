@@ -1,6 +1,6 @@
 import './App.css';
-import Ca from './Ca';
+import Cards from './Cards';
 function App() {
-	return <Ca />;
+	return <Cards />;
 }
 export default App;
