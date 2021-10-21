@@ -1,13 +1,15 @@
 import multer from 'multer';
 import express from 'express';
-import { bookImageFolder } from '../../fs-tool.js';
+import { saveBooksPic } from '../../fs-tool.js';
 
 const bookImgRouter = express.Router();
+
 bookImgRouter.post(
 	'/:id/uploadSingleImg',
 	multer().single('profilePic'),
 	async (req, res, next) => {
 		try {
+			await saveBooksPic(req.file.originalname, req.file.buffer);
 			res.send('ok');
 		} catch (error) {
 			next(error);
@@ -26,4 +28,5 @@ bookImgRouter.post(
 		}
 	},
 );
+
 export default bookImgRouter;

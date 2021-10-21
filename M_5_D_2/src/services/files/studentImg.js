@@ -1,15 +1,16 @@
 import multer from 'multer';
 import express from 'express';
-import { studentImageFolder } from '../../fs-tool.js';
+import { saveStudentPic } from '../../fs-tool.js';
 
 const studentImgRouter = express.Router();
+
 studentImgRouter.post(
-	'/uploadSingleImg',
+	'/:id/uploadSingleImg',
 	multer().single('profilePic'),
 	async (req, res, next) => {
 		try {
-			console.log(req.file)
-			res.send('ok')
+			await saveStudentPic(req.file.originalname, req.file.buffer);
+			res.send('ok');
 		} catch (error) {
 			next(error);
 		}
@@ -21,10 +22,11 @@ studentImgRouter.post(
 	multer().array('multiPics'),
 	async (req, res, next) => {
 		try {
-			res.send('ok')
+			res.send('ok');
 		} catch (error) {
 			next(error);
 		}
 	},
 );
+
 export default studentImgRouter;

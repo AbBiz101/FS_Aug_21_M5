@@ -1,8 +1,9 @@
+import cors from 'cors';
+import { join } from 'path';
 import express from 'express';
 import Endpoints from 'express-list-endpoints';
-import cors from 'cors';
-import studentRounter from './services/students/index.js';
 import booksRounter from './services/books/index.js';
+import studentRounter from './services/students/index.js';
 import bookImgRouter from '../src/services/files/bookImg.js';
 import studentImgRouter from '../src/services/files/studentImg.js';
 import {
@@ -11,8 +12,12 @@ import {
 	notFoundHandler,
 	unAutorizedHandler,
 } from './errorHandler.js';
+
+
 const server = express();
 
+const publicFolder = join(process.cwd(), './public');
+server.use(express.static(publicFolder));
 server.use(cors());
 server.use(express.json());
 
