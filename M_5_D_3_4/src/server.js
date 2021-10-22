@@ -1,7 +1,7 @@
 import express from 'express';
 import Endpoints from 'express-list-endpoints';
 import cors from 'cors';
-import blogpostRounter from './server/blogpost.js';
+import blogpostRounter from './server/post/blogpost.js';
 import {
 	badRequestHandler,
 	unAuterizedHandler,
