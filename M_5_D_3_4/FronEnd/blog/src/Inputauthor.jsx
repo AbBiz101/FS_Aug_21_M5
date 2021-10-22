@@ -1,26 +1,26 @@
 import React from 'react';
-import { Form, Col, Button } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
-export default function InputForm({ title }) {
+export default function Inputauthor({ title }) {
 	return (
 		<Form className="inputgroup">
 			<h2>{title}</h2>
 			<div className="lol">
 				<div className="minibox">
-					<h5> Title </h5>
-					<Form.Control type="text" placeholder="Enter the title" />
+					<h5> First Name </h5>
+					<Form.Control type="text" placeholder="Enter the first name " />
 				</div>
 
 				<div className="minibox">
-					<h5> Category </h5>
-					<Form.Control type="text" placeholder="Category of the post" />
+					<h5> Sur-Name </h5>
+					<Form.Control type="text" placeholder="Enter the Sur name" />
 				</div>
 			</div>
 
 			<div className="lol">
 				<div className="minibox">
-					<h5> Author name </h5>
-					<Form.Control placeholder="Name of the author" />
+					<h5>Date of birth</h5>
+					<Form.Control placeholder="Birth date of the author" />
 				</div>
 
 				<div className="minibox">
@@ -32,6 +32,7 @@ export default function InputForm({ title }) {
 			<div className="minibox">
 				<h5> Author image </h5>
 				<input type="file" />
+
 				<Button type="submit">Submit</Button>
 			</div>
 		</Form>

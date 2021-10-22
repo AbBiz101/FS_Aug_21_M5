@@ -23,24 +23,16 @@ export default function Cards() {
 	console.log(blogs);
 
 	return blogs.map((blg) => (
-		<Card
-			style={{
-				width: '18rem',
-				border: '1px solid black',
-				borderRadius: '10px',
-				backgroung: 'gray',
-				margin: '10px',
-			}}
-			key={blg.id}
-		>
+		<Card className="cards" key={blg.id}>
 			<Card.Img
-				style={{ width: '18rem', borderRadius: '10px 10px 0px 0px' }}
+				style={{ width: '290px', borderRadius: '10px 10px 0px 0px' }}
 				variant="top"
 				src={blg.author.avatar}
 			/>
 			<Card.Body>
 				<Card.Title>{blg.title}</Card.Title>
 				<Card.Text>{blg.category}</Card.Text>
+				<input type="text" />
 			</Card.Body>
 		</Card>
 	));
