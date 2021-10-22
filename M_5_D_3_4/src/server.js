@@ -1,7 +1,8 @@
+import cors from 'cors';
 import express from 'express';
 import Endpoints from 'express-list-endpoints';
-import cors from 'cors';
 import blogpostRounter from './server/post/blogpost.js';
+import authorsRounter from './server/author/author.js';
 import {
 	badRequestHandler,
 	unAuterizedHandler,
@@ -14,6 +15,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 server.use('/blogPosts', blogpostRounter);
+server.use('/authors', authorsRounter);
 
 server.use(badRequestHandler);
 server.use(unAuterizedHandler);

@@ -7,6 +7,7 @@ import { validationResult } from 'express-validator';
 import { getPost, writePost, blogImag } from '../../fs-tools.js';
 
 const blogpostRounter = express.Router();
+
 blogpostRounter.post(
 	'/:post/coverimg',
 	multer().single('profilePic'),
@@ -71,10 +72,9 @@ blogpostRounter.put('/:postID', async (req, res, next) => {
 blogpostRounter.delete('/:postID', async (req, res, next) => {
 	try {
 		const post = await getPost();
-		filterdPost = post.filter((p) => p.id !== req.params.postID);
+		const filterdPost = post.filter((p) => p.id !== req.params.postID);
 		console.log(req.params.postID);
 		await writePost(filterdPost);
-		console.log('deeted');
 		res.status(204).send();
 	} catch (error) {
 		next(error);
