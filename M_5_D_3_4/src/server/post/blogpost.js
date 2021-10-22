@@ -2,9 +2,9 @@ import multer from 'multer';
 import uniqid from 'uniqid';
 import express from 'express';
 import createHttpError from 'http-errors';
-import { blogValidator } from '../src/server/post/validator.js';
+import { blogValidator } from '../post/validation.js';
 import { validationResult } from 'express-validator';
-import { getPost, writePost, blogImag } from '../../fs-tool.js';
+import { getPost, writePost, blogImag } from '../../fs-tools.js';
 
 const blogpostRounter = express.Router();
 blogpostRounter.post(
