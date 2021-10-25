@@ -24,17 +24,12 @@ export default function Inputauthor({ title }) {
 				</div>
 
 				<div className="minibox">
-					<h5> Cover </h5>
+					<h5> Author image </h5>
 					<input type="file" />
+					<Button type="submit">Submit</Button>
 				</div>
 			</div>
 
-			<div className="minibox">
-				<h5> Author image </h5>
-				<input type="file" />
-
-				<Button type="submit">Submit</Button>
-			</div>
 		</Form>
 	);
 }

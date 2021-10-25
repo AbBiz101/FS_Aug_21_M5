@@ -26,13 +26,10 @@ export default function InputForm({ title }) {
 				<div className="minibox">
 					<h5> Cover </h5>
 					<input type="file" />
+					<h5> Author image </h5>
+					<input type="file" />
+					<Button type="submit">Submit</Button>
 				</div>
-			</div>
-
-			<div className="minibox">
-				<h5> Author image </h5>
-				<input type="file" />
-				<Button type="submit">Submit</Button>
 			</div>
 		</Form>
 	);
