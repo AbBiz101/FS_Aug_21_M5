@@ -12,8 +12,20 @@ import {
 
 const server = express();
 
-server.use(cors());
+const whiteList = [process.env.FE_LOCAL_URL, process.env.FE_PROD_URL];
+const corsOpts = {
+	origin: function (origin, next) {
+		console.log('current origin:',origin);
+		if (!origin || whiteList.indexOf(origin) !== -1) {
+			next(null, true);
+		} else {
+			next(new Error(404, 'CORS ERROR'));
+		}
+	},
+};
+server.use(cors(corsOpts));
 server.use(express.json());
+
 server.use('/blogPosts', blogpostRounter);
 server.use('/authors', authorsRounter);
 
@@ -22,7 +34,8 @@ server.use(unAuterizedHandler);
 server.use(notFoundHandler);
 server.use(genericErrorHandler);
 
-const port = 3008;
+const port = process.env.PORT;
+
 console.table(Endpoints(server));
 server.listen(port, () => {
 	console.log('server running-', port);
