@@ -6,5 +6,5 @@ export const authorValidator = [
 	body('date of birth')
 		.exists()
 		.withMessage('date of birth is mandatory field.'),
-	body('avatar').exists().withMessage('avatar is mandatory field.'),
+	// body('avatar').exists().withMessage('avatar is mandatory field.'),
 ];
