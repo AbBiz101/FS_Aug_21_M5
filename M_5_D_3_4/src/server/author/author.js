@@ -5,7 +5,6 @@ import createHttpError from 'http-errors';
 import { authorValidator } from '../author/validator.js';
 import { validationResult } from 'express-validator';
 import { getAuthor, writeAuthor, authorImag } from '../../fs-tools.js';
-
 const authorsRounter = express.Router();
 
 authorsRounter.post('/', authorValidator, async (req, res, next) => {
@@ -40,6 +39,7 @@ authorsRounter.post(
 		}
 	},
 );
+
 authorsRounter.get('/', async (req, res, next) => {
 	try {
 		const author = await getAuthor();
@@ -65,7 +65,7 @@ authorsRounter.put('/:id', async (req, res, next) => {
 		author[authorIndex] = editedAuthor;
 		await writeAuthor(author);
 		res.send(editedAuthor);
-		88
+		88;
 	} catch (error) {
 		next(error);
 	}
