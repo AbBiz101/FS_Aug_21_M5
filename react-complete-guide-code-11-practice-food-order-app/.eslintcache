@@ -1,0 +1,117 @@
+[
+	{
+		"D:\\FS\\M_5\\FS_Aug_21_M5\\Food App\\src\\index.js": "1",
+		"D:\\FS\\M_5\\FS_Aug_21_M5\\Food App\\src\\App.js": "2",
+		"D:\\FS\\M_5\\FS_Aug_21_M5\\Food App\\src\\components\\Header.jsx": "3"
+	},
+	{
+		"size": 195,
+		"mtime": 1635182914189,
+		"results": "4",
+		"hashOfConfig": "5"
+	},
+	{
+		"size": 136,
+		"mtime": 1635182699197,
+		"results": "6",
+		"hashOfConfig": "5"
+	},
+	{
+		"size": 377,
+		"mtime": 1635182799288,
+		"results": "7",
+		"hashOfConfig": "5"
+	},
+	{
+		"filePath": "8",
+		"messages": "9",
+		"errorCount": 0,
+		"fatalErrorCount": 0,
+		"warningCount": 1,
+		"fixableErrorCount": 0,
+		"fixableWarningCount": 0,
+		"source": null
+	},
+	"1yitfgv",
+	{
+		"filePath": "10",
+		"messages": "11",
+		"errorCount": 0,
+		"fatalErrorCount": 0,
+		"warningCount": 0,
+		"fixableErrorCount": 0,
+		"fixableWarningCount": 0
+	},
+	{
+		"filePath": "12",
+		"messages": "13",
+		"errorCount": 0,
+		"fatalErrorCount": 0,
+		"warningCount": 1,
+		"fixableErrorCount": 0,
+		"fixableWarningCount": 0,
+		"source": "14",
+		"usedDeprecatedRules": "15"
+	},
+	"D:\\FS\\M_5\\FS_Aug_21_M5\\Food App\\src\\index.js",
+	[
+		"16"
+	],
+	"D:\\FS\\M_5\\FS_Aug_21_M5\\Food App\\src\\App.js",
+	[],
+	"D:\\FS\\M_5\\FS_Aug_21_M5\\Food App\\src\\components\\Header.jsx",
+	[
+		"17"
+	],
+	"import React from 'react'\r\n\r\n\r\nexport default function Header() {\r\n    return (\r\n        <>\r\n            <header>\r\n                <h1>Aberu Pasta bet</h1>\r\n                <button>Cart</button>\r\n            </header>\r\n            <div> <img src=\"https://images.dailyhive.com/20200107152300/52057146_774296726286494_6084927626781349160_n.jpg\"/>  </div>\r\n        </>\r\n    )\r\n}\r\n",
+	[
+		"18",
+		"19"
+	],
+	{
+		"ruleId": "20",
+		"severity": 1,
+		"message": "21",
+		"line": 2,
+		"column": 8,
+		"nodeType": "22",
+		"messageId": "23",
+		"endLine": 2,
+		"endColumn": 14
+	},
+	{
+		"ruleId": "24",
+		"severity": 1,
+		"message": "25",
+		"line": 11,
+		"column": 19,
+		"nodeType": "26",
+		"endLine": 11,
+		"endColumn": 126
+	},
+	{
+		"ruleId": "27",
+		"replacedBy": "28"
+	},
+	{
+		"ruleId": "29",
+		"replacedBy": "30"
+	},
+	"no-unused-vars",
+	"'Header' is defined but never used.",
+	"Identifier",
+	"unusedVar",
+	"jsx-a11y/alt-text",
+	"img elements must have an alt prop, either with meaningful text, or an empty string for decorative images.",
+	"JSXOpeningElement",
+	"no-native-reassign",
+	[
+		"31"
+	],
+	"no-negated-in-lhs",
+	[
+		"32"
+	],
+	"no-global-assign",
+	"no-unsafe-negation"
+]
